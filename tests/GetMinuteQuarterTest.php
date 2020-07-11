@@ -17,6 +17,7 @@ class GetMinuteQuarterTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         getMinuteQuarter(75);
+        getMinuteQuarter(-4);
     }
 
     public function positiveDataProvider()
@@ -34,6 +35,7 @@ class GetMinuteQuarterTest extends TestCase
             [46, 'fourth'],
             [50, 'fourth'],
             [0, 'fourth'],
+            [60, 'fourth']
         ];
     }
 }

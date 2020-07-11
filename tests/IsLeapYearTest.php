@@ -17,6 +17,8 @@ class IsLeapYearTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         isLeapYear(1500);
+        isLeapYear(-1234);
+        isLeapYear(0);
     }
 
     public function positiveDataProvider()

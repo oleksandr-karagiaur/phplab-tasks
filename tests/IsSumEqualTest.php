@@ -17,6 +17,8 @@ class IsSumEqualTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         isSumEqual('1234');
+        isSumEqual('0');
+        isSumEqual('1214316143');
     }
 
     public function positiveDataProvider()

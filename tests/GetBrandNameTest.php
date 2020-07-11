@@ -20,6 +20,7 @@ class GetBrandNameTest extends TestCase
             ['europe', 'Europeurope'],
             ['php', 'Phphp'],
             ['the', 'The The'],
+            ['Anima', 'Animanima'],
         ];
     }
 }
