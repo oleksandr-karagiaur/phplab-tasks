@@ -9,7 +9,7 @@
  */
 function snakeCaseToCamelCase(string $input)
 {
-    return str_replace(' ', '', lcfirst(ucwords(str_replace('_', ' ', $input))));
+        return str_replace(' ', '', lcfirst(ucwords(str_replace('_', ' ', $input))));
 }
 
 /* alter
@@ -17,10 +17,10 @@ function snakeCaseToCamelCase(string $input)
         $firstWordToLower = lcfirst(array_shift($stringArray));
         $secondWordAndSoOn = '';
         foreach($stringArray as $value) {
-            $secondWordAndSoOn .= ucfirst($value);
+        $secondWordAndSoOn .= ucfirst($value);
         }
         return $firstWordToLower . $secondWordAndSoOn;
-    }*/
+*/
 
 /**
  * The $input variable contains multibyte text like 'ФЫВА олдж'
@@ -32,15 +32,14 @@ function snakeCaseToCamelCase(string $input)
  */
 function mirrorMultibyteString(string $input)
 {
-    if (!preg_match('/[а-ягґєіїА-ЯҐЄІЇa-zA-Z \']*/', $input)) {
-        echo ('Please enter your text using either cyrillic(Ukrainian, Russian) or latin');
-        exit();
-    } else {
+       if (!preg_match('/[а-ягґєіїА-ЯҐЄІЇa-zA-Z \']*/', $input)) {
+        throw new InvalidArgumentException ('Please enter your text using either cyrillic(Ukrainian, Russian) or latin');
+       } else {
         preg_match_all('/./us', $input, $array);
         $strReverse = join('', array_reverse($array[0]));
         $reverseAgain = array_reverse(explode(' ', $strReverse));
         return trim(implode(' ', $reverseAgain));
-    }
+       }
 }
 
 /**
@@ -60,17 +59,16 @@ function mirrorMultibyteString(string $input)
 function getBrandName(string $noun)
 {
     if (!preg_match('/^[a-zA-Z]+$/', $noun)) {
-        echo 'Enter a word, please';
-        exit();
+        throw new InvalidArgumentException ('Enter a word, please');
     } else {
-//Implementing a logic where 'A' equal 'a'
+//Implementing a logic where 'A' equals 'a'
         $firstSymbol = $noun[0];
         $lastSymbol = $noun[-1];
         if (strcasecmp($firstSymbol, $lastSymbol) === 0) {
            return ucfirst(substr($noun, 0, -1)) . lcfirst($noun);
 // alter return ucfirst(substr_replace($noun,'', -1, 1)) . lcfirst($noun);
         } else {
-            return 'The ' . ucfirst($noun);
+           return 'The ' . ucfirst($noun);
         }
     }
 }
@@ -81,13 +79,13 @@ function getBrandName(string $noun)
            echo 'Enter a word, please';
            exit();
         } else {
-        $firstSymbol = substr($noun, 0, 1);
-        $lastSymbol = substr($noun, -1, 1);
-            if (strcasecmp($firstSymbol, $lastSymbol) === 0) {
+           $firstSymbol = substr($noun, 0, 1);
+           $lastSymbol = substr($noun, -1, 1);
+           if (strcasecmp($firstSymbol, $lastSymbol) === 0) {
                 return ucfirst(substr($noun, 0, -1)) . lcfirst($noun);
             } else {
                 return 'The ' . ucfirst($noun);
             }
         }
-    }
+}
 */
