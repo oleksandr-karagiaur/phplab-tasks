@@ -16,6 +16,8 @@ function snakeCaseToCamelCase(string $input)
 }
 
 /* alter
+function snakeCaseToCamelCase(string $input)
+{
         $stringArray = explode('_', $input);
         $firstWordToLower = lcfirst(array_shift($stringArray));
         $secondWordAndSoOn = '';
@@ -26,6 +28,7 @@ function snakeCaseToCamelCase(string $input)
 //$firstWordToLower = strtolower(array_shift($stringArray));
         }
         return $firstWordToLower . $secondWordAndSoOn;
+}
 */
 /**
  * The $input variable contains multibyte text like 'ФЫВА олдж'
@@ -73,19 +76,3 @@ function getBrandName(string $noun)
         }
     }
 }
-
-/* alter
-{
-        if (!preg_match('/^[a-zA-Z]*$/', $noun)) {
-          throw new InvalidArgumentException ('Enter a word, please');
-        } else {
-           $firstSymbol = substr($noun, 0, 1);
-           $lastSymbol = substr($noun, -1, 1);
-           if (strcasecmp($firstSymbol, $lastSymbol) === 0) {
-                return ucfirst(substr($noun, 0, -1)) . lcfirst($noun);
-            } else {
-                return 'The ' . ucfirst($noun);
-            }
-        }
-}
-*/
