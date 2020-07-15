@@ -9,7 +9,10 @@
  */
 function snakeCaseToCamelCase(string $input)
 {
-        return str_replace(' ', '', lcfirst(ucwords(str_replace('_', ' ', $input))));
+         return str_replace(' ', '', lcfirst(ucwords(str_replace('_', ' ', $input))));
+         /*Implementing a logic that inside the string capitalized letters must be only the first ones in each word except the very first
+         $underscoreReplace = str_replace('_', ' ', $input);
+         return str_replace(' ', '', lcfirst(ucwords(strtolower($underscoreReplace))));*/
 }
 
 /* alter
@@ -18,10 +21,12 @@ function snakeCaseToCamelCase(string $input)
         $secondWordAndSoOn = '';
         foreach($stringArray as $value) {
         $secondWordAndSoOn .= ucfirst($value);
+//Implementing a logic that inside the string capitalized letters must be only the first ones in each word except the very first
+//$secondWordAndSoOn .= strtoupper($value[0]) . strtolower(substr($value, 1)); and respectively
+//$firstWordToLower = strtolower(array_shift($stringArray));
         }
         return $firstWordToLower . $secondWordAndSoOn;
 */
-
 /**
  * The $input variable contains multibyte text like 'ФЫВА олдж'
  * Mirror each word individually and return transformed text (i.e. 'АВЫФ ждло')
@@ -32,14 +37,10 @@ function snakeCaseToCamelCase(string $input)
  */
 function mirrorMultibyteString(string $input)
 {
-       if (!preg_match('/[а-ягґєіїА-ЯҐЄІЇa-zA-Z \']*/', $input)) {
-        throw new InvalidArgumentException ('Please enter your text using either cyrillic(Ukrainian, Russian) or latin');
-       } else {
         preg_match_all('/./us', $input, $array);
         $strReverse = join('', array_reverse($array[0]));
         $reverseAgain = array_reverse(explode(' ', $strReverse));
         return trim(implode(' ', $reverseAgain));
-       }
 }
 
 /**
@@ -76,8 +77,7 @@ function getBrandName(string $noun)
 /* alter
 {
         if (!preg_match('/^[a-zA-Z]*$/', $noun)) {
-           echo 'Enter a word, please';
-           exit();
+          throw new InvalidArgumentException ('Enter a word, please');
         } else {
            $firstSymbol = substr($noun, 0, 1);
            $lastSymbol = substr($noun, -1, 1);
