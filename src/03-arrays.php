@@ -10,6 +10,11 @@
  */
 function repeatArrayValues(array $input)
 {
+    $mergedDuplicateArray = array();
+    foreach($input as $value) {
+        $mergedDuplicateArray = array_merge($mergedDuplicateArray, array_fill(0, $value, $value));
+    }
+    return $mergedDuplicateArray;
 }
 
 /**
@@ -22,6 +27,17 @@ function repeatArrayValues(array $input)
  */
 function getUniqueValue(array $input)
 {
+    $sameValuesInArrayCount = array_count_values($input);
+    $notDuplicateArray = array();
+    foreach ($sameValuesInArrayCount as $key => $value) {
+        if ($value === 1) {
+            $notDuplicateArray[] = $key;
+        }
+    }
+    if ((empty($notDuplicateArray)) || (empty($input))) {
+        return 0;
+    }
+        return min($notDuplicateArray);
 }
 
 /**
@@ -50,4 +66,13 @@ function getUniqueValue(array $input)
  */
 function groupByTag(array $input)
 {
+    array_multisort($input);
+    $sortedArray = array();
+    foreach ($input as $subarray) {
+        foreach($subarray['tags'] as $tagValue) {
+            $sortedArray[$tagValue][] = $subarray['name'];
+        }
+    }
+    ksort($sortedArray);
+    return $sortedArray;
 }
