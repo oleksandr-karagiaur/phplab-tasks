@@ -42,7 +42,7 @@ if (isset($_GET['sort']))
  * (see Pagination task below)
  */
 
-$pagesNumber = '';
+$pagesNumber = 0;
 $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $page = $_GET['page'] ?? 1;
 if (isset($_GET['filter_by_first_letter']) || (isset($_GET['filter_by_state'])))
