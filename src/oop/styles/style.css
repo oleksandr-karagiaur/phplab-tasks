@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap');
+
+body {
+    font-family: 'Noto Serif KR', serif;
+}
+
+#reqmain {
+    margin: 40px 0px 10px 0px;
+    padding: 20px 0px 20px 10px;
+}
+
+span {
+    margin-bottom:15px;
+    display:inline-block;
+}
+
+.gp-sub-btn {
+    margin-bottom:6px;
+}
+
+#gValue {
+    margin-right:10px;
+}
+
+body#mainpage {
+    background: rgb(252,252,252);
+    background: linear-gradient(90deg, rgba(252,252,252,1) 0%, rgba(229,229,246,0.829551889115021) 92%);
+}
+
+body#reqtestpage {
+    background-color: #fdfbff;
+}
+
+body#sestestpage {
+    background-color: #fbffff;
+}
+
+body#cooktestpage {
+    background-color: #fffcfd;
+}
+
+#rb {
+    background-color: #b8b7da;
+    margin-top: 75px;
+}
+
+#cb {
+    background-color: #f8d4de;
+}
+
+#sb {
+    background-color: #cfeadd;
+}
+
+#rb,#cb,#sb {
+    margin-bottom: 30px;
+}

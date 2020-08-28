@@ -3,23 +3,19 @@
 
 class Session
 {
-    public $session;
+    private $session;
 
-    public function __construct(array $session)
+    public function __construct()
     {
-        $this->session = $session;
+        $this->session = $_SESSION;
     }
 
     public function all(array $only = [])
     {
-        if (isset($this->session)) {
-            if (!empty($only)) {
-                return array_keys($only);
-            } else {
-                return $this->session;
-            }
+        if (!empty($only)) {
+            return array_keys($only);
         } else {
-            echo 'No session set';
+            return $this->session;
         }
     }
 
@@ -40,30 +36,21 @@ class Session
 
     public function has($key)
     {
-        if (isset($this->session)) {
-            if (in_array($key, array_keys($this->session))) {
-                return true;
-            } else {
-                return false;
-            }
+        if (in_array($key, array_keys($this->session))) {
+            return true;
         } else {
-            echo 'No session set';
+            return false;
         }
     }
 
     public function remove($key)
     {
-        if (isset($this->session)) {
-            if (array_key_exists($key, $this->session)) {
-                unset($this->session[$key]);
-            } else {
-                echo 'No such session name was found';
-            }
+        if (array_key_exists($key, $this->session)) {
+            unset($this->session[$key]);
         }
     }
 
-    public function clear()
-    {
+    public function clear() {
         session_unset();
         session_destroy();
     }

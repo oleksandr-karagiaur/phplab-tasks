@@ -6,8 +6,8 @@
             "src/03-arrays.php",
             "src/04-functions.php",
             "src/web/functions.php",
-            "src/oop/CookiesController.php",
             "src/oop/RequestController.php",
+            "src/oop/CookiesController.php",
             "src/oop/SessionController.php"
         ],
         "psr-4": {

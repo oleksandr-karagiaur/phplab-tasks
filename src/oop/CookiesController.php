@@ -4,36 +4,30 @@
 class Cookies
 {
 
-    public $cookies;
+    private $cookies;
+    private $server;
 
-    public function __construct(array $cookies)
+    public function __construct()
     {
-        $this->cookies = $cookies;
+        $this->cookies = $_COOKIE;
+        $this->server = $_SERVER;
     }
 
     public function all(array $only = [])
     {
-        if (isset($this->cookies)) {
-            if (!empty($only)) {
-                return array_keys($only);
-            } else {
-                return $this->cookies;
-            }
+        if (!empty($only)) {
+            return array_keys($only);
         } else {
-            echo 'There are no cookies set';
+            return $this->cookies;
         }
     }
 
     public function get($key, $default = null)
     {
-        if (isset($this->cookies)) {
-            if (array_key_exists($key, $this->cookies)) {
-                return $this->cookies[$key];
-            } else {
-                return $default;
-            }
+        if (array_key_exists($key, $this->cookies)) {
+            return $this->cookies[$key];
         } else {
-            echo 'There are no cookies set';
+            return $default;
         }
     }
 
@@ -44,27 +38,29 @@ class Cookies
 
     public function has($key)
     {
-        if (isset($this->cookies)) {
-            if (in_array($key, array_keys($this->cookies))) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            echo 'There are no cookies set';
-        }
+        return array_key_exists($key, $this->cookies) ? true : false;
     }
 
     public function remove($key)
     {
-        if (isset($this->cookies)) {
-            if (array_key_exists($key, $this->cookies)) {
-                setcookie($key, '', time()-360);
-            } else {
-                echo 'No such cookie with this name was found';
-            }
+        if (array_key_exists($key, $this->cookies)) {
+            setcookie($key, '', time() - 360);
         } else {
-            echo 'There are no cookies at all, so there is nothing to remove';
+            return null;
+        }
+    }
+
+    public function clearAllCookies()
+    {
+        $cookiesServer = $this->server['HTTP_COOKIE'];
+        if (isset($cookiesServer)) {
+            $cookies = explode(';', $cookiesServer);
+            foreach($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name = trim($parts[0]);
+                setcookie($name, '', time()-1000);
+                setcookie($name, '', time()-1000, '/');
+            }
         }
     }
 }

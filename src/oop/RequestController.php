@@ -3,19 +3,19 @@
 
 class Request {
 
-    public $query;
-    public $request;
-    public $server;
-    public $cookies;
-    public $session;
+    private $query;
+    private $request;
+    private $server;
+    private $cookies;
+    private $session;
 
-    public function __construct(array $query, array $request, array $server, array $cookies, array $session)
+    public function __construct()
     {
-        $this->query = $query;
-        $this->request = $request;
-        $this->server = $server;
-        $this->cookies = $cookies;
-        $this->session = $session;
+        $this->query = $_GET;
+        $this->request = $_POST;
+        $this->server = $_SERVER;
+        $this->cookies = $_COOKIE;
+        $this->session = $_SESSION;
     }
 
 
@@ -37,17 +37,14 @@ class Request {
         }
     }
 
-    public function get($key, $default = null)
+    public function get($key)
     {
-        $getArray = array_keys($this->query);
-        $postArray = array_keys($this->request);
-        if ((!in_array($key, $getArray)) && (!in_array($key, $postArray))) {
-            return $default;
-        } elseif (((in_array($key, $getArray) && in_array($key, $postArray))) || (in_array($key, $postArray))) {
-            return $this->request[$key];
-        } else {
-            return $this->query[$key];
+        if (isset($key) && $this->server['REQUEST_METHOD'] == 'POST') {
+            return $this->post($key);
+        } elseif (isset($key) && $this->server['REQUEST_METHOD'] == 'GET') {
+            return $this->query($key);
         }
+        return $key;
     }
 
     public function all(array $only = [])
@@ -62,7 +59,7 @@ class Request {
 
     public function has($key)
     {
-        if (in_array($key, array_keys($this->query)) || in_array($key, array_keys($this->request))) {
+        if ((array_key_exists($key, $this->query)) || (array_key_exists($key, $this->request))) {
             return true;
         } else {
             return false;
@@ -81,24 +78,18 @@ class Request {
 
     public function cookies()
     {
-        return json_decode(json_encode($this->cookies));
+        return json_decode(json_encode($this->cookies), FALSE);
     }
 
     public function session()
     {
-        return json_decode(json_encode($this->session));
+        return json_decode(json_encode($this->session), FALSE);
     }
 
-    // Returns $_GET array
-    public function getArray()
-    {
-        return $this->query;
-    }
-
-    // Returns $_POST array
-    public function postArray()
-    {
-        return $this->request;
+    public function sessionSet($key, $value) {
+        if (isset($this->session)) {
+            $this->session[$key] = $value;
+        }
     }
 
     // Clears $_GET array
@@ -111,11 +102,5 @@ class Request {
     public function clearPost()
     {
         return $this->request = [];
-    }
-
-    // Merges $_GET and $_POST arrays
-    public function queryRequestMerged()
-    {
-        return array_merge($this->query, $this->request);
     }
 }
